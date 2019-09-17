@@ -26,18 +26,30 @@ const NavigationStack = createStackNavigator(
       screen: Contacts,
       navigationOptions: {
         title: 'Contatos',
+        headerTintColor: '#ffffff',
+        headerStyle: {
+          backgroundColor: '#593196',
+        },
       }
     },
     ContactDetails: {
       screen: ContactDetails,
       navigationOptions: {
         title: 'Detalhes do Contato',
+        headerTintColor: '#ffffff',
+        headerStyle: {
+          backgroundColor: '#593196',
+        },
       }
     }, 
     AddContact: {
       screen: AddContact,
       navigationOptions: {
         title: 'Adicionar Contato',
+        headerTintColor: '#ffffff',
+        headerStyle: {
+          backgroundColor: '#593196',
+        },
       }
     },
   },

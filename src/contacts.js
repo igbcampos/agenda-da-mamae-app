@@ -14,7 +14,7 @@ export default class Contacts extends Component {
         this.getContacts();
     }
 
-    async getContacts() {
+    getContacts = async () => {
         let contacts = [];
         
         await firebase.firestore().collection('contacts').get()
@@ -33,7 +33,9 @@ export default class Contacts extends Component {
     renderItem(item) {
         if(item.name.toLowerCase().includes(this.state.search.toLowerCase()) || item.email.toLowerCase().includes(this.state.search.toLowerCase()) || item.phone.toLowerCase().includes(this.state.search.toLowerCase())) {
             return (
-                <TouchableOpacity onPress={ () => this.props.navigation.navigate('ContactDetails', { contact: item }) }>
+                <TouchableOpacity 
+                    style={ styles.contact }
+                    onPress={ () => this.props.navigation.navigate('ContactDetails', { contact: item }) }>
                     <Text>{ item.name }</Text>
                     <Text>{ item.phone }</Text>
                 </TouchableOpacity>
@@ -51,18 +53,22 @@ export default class Contacts extends Component {
 
         return (
             <ScrollView>
-                <View>
+                <View style={ styles.button }>
                     <Button 
                         title='Adicionar contato' 
+                        color='#593196'
                         onPress={ () => this.props.navigation.navigate('AddContact') } />
                 </View>
 
                 <TextInput
                     placeholder='Buscar'
                     value={ this.props.value }
-                    onChangeText={ (search) => this.setState({ search }) } />
+                    onChangeText={ (search) => this.setState({ search }) }
+                    style={ styles.input } />
 
                 <View style={ styles.container }>
+                    <Text style={ styles.title }>Contatos</Text>
+
                     <FlatList
                         data={ this.state.contacts }
                         keyExtractor={ (item) => item.id }
@@ -80,5 +86,27 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: '#fff',
+        padding: 16
     },
+    button: {
+        padding: 16,
+    },
+    input: {
+        marginHorizontal: 16,
+        padding: 8,
+        borderWidth: 1,
+        borderRadius: 8,
+        borderColor: '#593196'
+    },
+    title: {
+        fontSize: 20,
+        color: '#593196',
+    },
+    contact: {
+        marginTop:8,
+        padding: 8,
+        borderWidth: 1,
+        borderRadius: 8,
+        borderColor: '#593196'
+    }
 });
